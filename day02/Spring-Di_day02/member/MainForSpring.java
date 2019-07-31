@@ -4,12 +4,25 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.GenericXmlApplicationContext;
+
 /*
  * 객체 조립기
+ * mainforassembler에서 수정
+ * 의존관계자동설정: appCtx4.xml이용
+ * annotation 자동주입 : appCtx6.xml 이용
  * */
-public class MainForAssembler {
+public class MainForSpring {
 	
-	private static Assembler assembler = new Assembler();
+	//private static Assembler assembler = new Assembler();
+	
+	
+	//spring container 생성: 조립기 설정파일인 appCtx1.xml읽고 컨테이너 생성함. 
+	//genericXmlAppliCon(Locatoin) :String형식의 주소값을 넣는다.
+//	private static ApplicationContext ctx = new GenericXmlApplicationContext("classpath:appCtx1.xml");
+//	private static ApplicationContext ctx = new GenericXmlApplicationContext("classpath:appCtx4.xml");
+	private static ApplicationContext ctx = new GenericXmlApplicationContext("classpath:appCtx6.xml");
 	
 	public static void main(String[] args) throws IOException {
 		
@@ -45,7 +58,10 @@ public class MainForAssembler {
 		}
 		
 		//의존성낮추기
-		MemberRegisterService service = assembler.getRegService();
+//		MemberRegisterService service = assembler.getRegService();
+		/*bean객체의 이름과, 반환형태를 갖는 getBean메서드 호출*/
+		MemberRegisterService service = ctx.getBean("regService", MemberRegisterService.class);
+		
 		RegisterRequest request = new RegisterRequest();
 		request.setEmail(args[1]);
 		request.setName(args[2]);
@@ -78,7 +94,8 @@ public class MainForAssembler {
 			return;
 		}
 		
-		ChangePasswordService service = assembler.getPwService();
+		//ChangePasswordService service = assembler.getPwService();
+		ChangePasswordService service = ctx.getBean("chgPwService", ChangePasswordService.class);
 		
 			try {
 				service.changePassword(args[1], args[2], args[3]);

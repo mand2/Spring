@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd">
+	
+	
+	<!-- memberDao객체를 bean으로 등록, 식별자는 memberDao 외부클래스에서 인스턴스반환할 때 사용가능.  -->
+	<bean id="memberDao" class="member.MemberDao"/>
+	
+	<!-- 생성자주입방식 -->
+		<!-- <bean id="regService" class="member.MemberRegisterService">
+			<constructor-arg>
+				<ref bean="memberDao"/>
+			</constructor-arg>
+		</bean> -->
+	<!-- 프러퍼티 주입방식 -->
+	<bean id="regService" class="member.MemberRegisterService">
+		<property name="memberDao">
+			<ref bean="memberDao"/>
+		</property>
+	</bean>	
+	
+	<!-- 생성자주입방식 -->
+	<!-- 위나 아래나 같음. -->
+		<!-- <bean id="chgPwService" class="member.ChangePasswordService">
+			<constructor-arg ref="memberDao"/>
+		</bean> -->
+	<!-- property 주입방식 -->
+		<!-- 
+		<bean id="chgPwService" class="member.ChangePasswordService">
+		<property name="memberDao" ref="memberDao"/>
+		</bean>
+	 	-->
+	 <!-- 한 줄로 줄여보자!! -->
+		<bean id="chgPwService" class="member.ChangePasswordService" p:memberDao-ref="memberDao">
+		</bean>
+	
+</beans>
