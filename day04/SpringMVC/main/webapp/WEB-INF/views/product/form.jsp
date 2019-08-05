@@ -12,6 +12,7 @@
 <!-- 	<form action="order" method="post"> -->
 	<form method="post"> <!-- action생략시 자기자신에게 보냄. -->
 		product 1 - id : <input type="text" name="orderItems[0].itemId">
+		product 1 - no : <input type="text" name="orderItems[0].number">
 		product 1 - rm : <input type="text" name="orderItems[0].remark">
 		<br>
 		
