@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 
 <!-- login / form.jsp 로그인 -->        
+
 <%request.setCharacterEncoding("utf-8"); %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
@@ -30,7 +31,7 @@
 <!-- contents 시작 -->
 	<div class = "wrap">
 		<h2>로그인</h2>
-		<form action="login" method="post">
+		<form id="login" method="post">
 			<div id="regForm">
 					<!--input 의 width값을 길게 주면 아래 행으로 넘어가니까 효과 있음!-->
 					<!--.inputbox는 박스 클릭시 색상 주기, .input은 width설정-->
@@ -55,6 +56,10 @@
 						<input type="checkbox"> 아이디 저장
 					</h4>
 					<input type="submit" value="로그인">
+					<div class="btn_click">
+	            	<span><a href="<c:url value='/join/form'/>">회원가입</a></span>
+           			</div>
+					
 				</div>
 			</form>
 		

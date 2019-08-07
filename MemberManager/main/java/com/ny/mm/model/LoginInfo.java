@@ -11,7 +11,6 @@ public class LoginInfo {
 	private Date regDate;
 	
 	public LoginInfo(String id, String name, String photo, Date regDate) {
-		super();
 		this.id = id;
 		this.name = name;
 		this.photo = photo;

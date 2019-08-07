@@ -33,16 +33,20 @@ public class Member {
 		this.regDate = new Date();		
 	}
 	
+	public Member(int idx, String id, String pw, String name, String photo, Date regDate) {
+		this.idx = idx;
+		this.id = id;
+		this.pw = pw;
+		this.name = name;
+		this.photo = photo;
+		this.regDate = regDate;
+	}
+
+
 	@Override
 	public String toString() {
-		String info ="";
-		info += "<span class=\"inputBox\">회원번호</span>" + idx + "\n";
-		info += "<span class=\"inputBox\">아 이 디</span>" + id + "\n";
-		info += "<span class=\"inputBox\">이    름</span>" + name + "\n";
-		info += "<span class=\"inputBox\">사    진</span>" + photo + "\n";
-		info += "<span class=\"inputBox\">가 입 일</span> " + regDate + "\n";
-		
-		return info;
+		return "Member [idx=" + idx + ", id=" + id + ", pw=" + pw + ", name=" + name + ", photo=" + photo + ", regDate="
+				+ regDate + "]";
 	}
 
 	public String getId() {

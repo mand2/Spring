@@ -1,4 +1,15 @@
 package com.ny.mm.controller;
+/*-------------------
+ * 파일이름: JoinController.java
+ * 파일설명: 회원가입 
+ * 작성자: 김나연
+ * 버전: 1.0.0
+ * 생성일자: 2019-08-06 오전 10시 57분
+ * 최종수정일자: 2019-08-06 오전 10시 57분
+ * 최종수정자: 김나연
+ * 최종수정내용: member manager 스프링으로 변경 
+ * -------------------*/
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,13 +42,10 @@ public class JoinController {
 	
 	@RequestMapping(value = "/join/form", method = RequestMethod.POST)
 	public String join(Model model, JoinMember joinMember, HttpServletRequest request) {
-		System.out.println(joinMember);
 		
 		model.addAttribute("result", joinservice.joinMember(request, joinMember));
-		/* jsp에 멤버 보여주기
-		 * Member member = new Member(joinMember.getId(), joinMember.getPw(),
-		 * joinMember.getName(), photo);
-		 */
+		
+		model.addAttribute("member", new Member(joinMember.getId(), joinMember.getPw(), joinMember.getName(), joinMember.getPhoto().getOriginalFilename()));
 		
 		return "join/join";
 	}

@@ -58,4 +58,24 @@
         border-radius: 3px;
     }                                                                                               
     
+    .btn_click {
+     	width: inherit;
+    }
     
+    .btn_click span {
+		line-height: 40px;
+        font-size: 0.85em;
+        text-align: center;
+        box-sizing: border-box;
+        cursor: pointer;
+        display: block;
+    }
+    
+    .btn_click span:first-child {
+        background-color: #B825F3; 
+		margin: 15px 0;
+	}
+    
+    .btn_click span:nth-child(2) {
+        background-color: #FCE3FF; 
+	}

@@ -16,11 +16,14 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 import org.springframework.stereotype.Repository;
 
 import com.ny.mm.jdbc.JdbcUtil;
 import com.ny.mm.model.Member;
+import com.ny.mm.model.SearchMember;
 
 @Repository("dao")
 public class MemberDAO {
@@ -55,35 +58,190 @@ public class MemberDAO {
 	
 	
 	//전체회원 리스트가져오기
-	public ArrayList<Member> getALLMemberList(Connection conn) {
+	public List<Member> selectList(Connection conn, int index, int perCnt) {
+		/*유저이름순정렬*/
 		
-		ArrayList<Member> list = new ArrayList<Member>();
-		
-		Statement stmt = null;
+		PreparedStatement pstmt = null;
 		ResultSet rs = null;
+		String sql = "select * from project_01.memberinfo limit ?, ?";
+		
+		List<Member> list = new ArrayList<Member>();
+
+		String opt = "";
+		String condition = "";
 		
 		try {
-			stmt = conn.createStatement();
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, index);
+			pstmt.setInt(2, perCnt);
+			
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				
+				Date date = rs.getTimestamp(6); 
+				
+				list.add(new Member(rs.getInt(1), 
+									rs.getString(2), 
+									rs.getString(3),
+									rs.getString(4), 
+									rs.getString(5), 
+									date
+						));
+			}
 		
-			String sql = "select * from project_01.memberinfo order by idx";
-			rs = stmt.executeQuery(sql);
 		
+		} catch (SQLException e) {
+			System.out.println(e + "Show ALL member LIST FAIL!!");
+		}
+		
+		return list;
+	}
+	
+	
+	/*유저이름 검색*/
+	public List<Member> selectListByName(Connection conn, int index, int perCnt, SearchMember searchMember) {
+		
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		List<Member> list = new ArrayList<Member>();
+		
+		String opt = "";
+		String condition = "";
+		
+		
+		try {
+				opt = searchMember.getType();
+				condition = searchMember.getKeyword();
+				
+				String sql = "select * from project_01.memberinfo ";
+				sql += " where name like ? ";
+				sql += " limit ?, ? ";
+				
+				pstmt = conn.prepareStatement(sql);
+
+				pstmt.setString(1, "%"+condition+"%");
+				pstmt.setInt(2, index);
+				pstmt.setInt(3, perCnt);
+			
+				rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				
+				Date date = rs.getTimestamp(6); 
+				
+				list.add(new Member(rs.getInt(1), 
+						rs.getString(2), 
+						rs.getString(3),
+						rs.getString(4), 
+						rs.getString(5), 
+						date
+						));
+			}
 			
 			
-		while(rs.next()) {
-			Member vo = new Member();
-			
-			vo.setIdx(rs.getInt(1));
-			vo.setId(rs.getString(2));
-			vo.setPw(rs.getString(3));
-			vo.setName(rs.getString(4));
-			vo.setPhoto(rs.getString(5));
-			vo.setRegDate(rs.getDate(6));
-			
-			list.add(vo);
-		};
+		} catch (SQLException e) {
+			System.out.println(e + "Show ALL member LIST FAIL!!");
+		}
+		
+		return list;
+	}
+	
+	/*유저ID 검색*/
+	public List<Member> selectListById(Connection conn, int index, int perCnt, SearchMember searchMember) {
+		
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		List<Member> list = new ArrayList<Member>();
+		
+		String opt = "";
+		String condition = "";
 		
 		
+		try {
+			opt = searchMember.getType();
+			condition = searchMember.getKeyword();
+			
+			String sql = "select * from project_01.memberinfo ";
+			sql += " where id like ? ";
+			sql += " limit ?, ? ";
+			
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, "%"+condition+"%");
+			pstmt.setInt(2, index);
+			pstmt.setInt(3, perCnt);
+			
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				
+				Date date = rs.getTimestamp(6); 
+				
+				list.add(new Member(rs.getInt(1), 
+						rs.getString(2), 
+						rs.getString(3),
+						rs.getString(4), 
+						rs.getString(5), 
+						date
+						));
+			}
+			
+			
+		} catch (SQLException e) {
+			System.out.println(e + "Show ALL member LIST FAIL!!");
+		}
+		
+		return list;
+	}
+	
+	/*유저ID 검색*/
+	public List<Member> selectListByBoth(Connection conn, int index, int perCnt, SearchMember searchMember) {
+		
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		List<Member> list = new ArrayList<Member>();
+		
+		String opt = "";
+		String condition = "";
+		
+		
+		try {
+			opt = searchMember.getType();
+			condition = searchMember.getKeyword();
+			
+			String sql = "select * from project_01.memberinfo ";
+			sql += " where id like ? ";
+			sql += " or name like ? ";
+			sql += " limit ?, ? ";
+			
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, "%"+condition+"%");
+			pstmt.setString(2, "%"+condition+"%");
+			pstmt.setInt(3, index);
+			pstmt.setInt(4, perCnt);
+			
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				
+				Date date = rs.getTimestamp(6); 
+				
+				list.add(new Member(rs.getInt(1), 
+						rs.getString(2), 
+						rs.getString(3),
+						rs.getString(4), 
+						rs.getString(5), 
+						date
+						));
+			}
+			
+			
 		} catch (SQLException e) {
 			System.out.println(e + "Show ALL member LIST FAIL!!");
 		}
@@ -113,7 +271,7 @@ public class MemberDAO {
 				member.setPw(rs.getString(3));
 				member.setName(rs.getString(4));
 				member.setPhoto(rs.getString(5));
-				member.setRegDate(rs.getDate(6));
+				member.setRegDate(rs.getTimestamp(6));
 			}
 		
 		} catch (SQLException e) {
@@ -126,7 +284,62 @@ public class MemberDAO {
 		return member;
 	}
 	
-	
-	
+	//회원 총 인원
+	public int selectTotalCount(Connection conn, SearchMember searchMember) {
+		int totalCnt = 0;
+		
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		String sql = "select count(*) from project_01.memberinfo ";
+		
+		String opt = "";
+		String condition = "";
+		
+		if(searchMember != null) {
+			opt = searchMember.getType();
+			condition = searchMember.getKeyword();
+			
+			/* 참고:
+			 * opt == "1" 는 안됨 
+			 * searchMember가 참조변수로 들어온거라 주소값임. 문자비교인 equals 메서드 써야 함.
+			 * */
+			
+			if(opt.equals("1")) {
+				sql += " where name like ? ";
+			}
+			if(opt.equals("2")) {
+				sql += " where id like ? ";
+			}
+			if(opt.equals("3")) {
+				sql += " where id like ? or ";
+				sql += " name like ? ";
+			}
+			
+		}//서치 누를떄만 넣어줌.
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+
+			if(searchMember != null) {
+				pstmt.setString(1, "%"+condition+"%");
+				if( opt.equals("3")) {
+					pstmt.setString(2, "%"+condition+"%");
+				}
+			}
+
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				totalCnt = rs.getInt(1);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		
+		return totalCnt;
+	}
 	
 }
