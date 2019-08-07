@@ -24,8 +24,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.ny.mm.dao.MemberDAO;
-import com.ny.mm.model.JoinMember;
 import com.ny.mm.model.Member;
+import com.ny.mm.model.member.JoinMember;
 import com.ny.mm.service.JoinService;
 import com.ny.mm.service.memberService;
 

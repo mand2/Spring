@@ -51,7 +51,7 @@
                 
                 <div class="warning">
                     <label for="pw"><h4>비밀번호</h4></label>
-                    <span class="inputbox"><input id="pw" name="pw" class="input"></span>
+                    <span class="inputbox"><input id="pw" name="pw" class="input" type="password"></span>
                     <h5></h5>
                 </div>
                 
@@ -62,8 +62,8 @@
                 </div>
 
                 <div class="warning">
-                    <label for="name"><h4>사진</h4></label>
-                    <span class="inputbox"><input type="file" name = "photo"></span>
+                    <label for="photo"><h4>사진</h4></label>
+                    <span class="inputbox"><input type="file" name = "photo" id="photo"></span>
                     <h5></h5>
                 </div>
                 

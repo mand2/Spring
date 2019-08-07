@@ -15,8 +15,8 @@ import org.springframework.stereotype.Service;
 
 import com.ny.mm.dao.MemberDAO;
 import com.ny.mm.jdbc.ConnectionProvider;
-import com.ny.mm.model.JoinMember;
 import com.ny.mm.model.Member;
+import com.ny.mm.model.member.JoinMember;
 
 @Service(value = "joinService")
 public class JoinService implements memberService{

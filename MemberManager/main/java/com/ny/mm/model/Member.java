@@ -13,6 +13,8 @@ import java.util.Date;
 
 import org.springframework.web.multipart.MultipartFile;
 
+import com.ny.mm.model.member.LoginInfo;
+
 public class Member {
 	private int idx;
 	private String id;

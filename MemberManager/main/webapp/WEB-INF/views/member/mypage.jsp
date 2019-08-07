@@ -43,7 +43,7 @@ ${loginInfo}
         <div id="regForm">
             
             <div class="warning">
-                <label for="id"><h4>아이디</h4></label>
+                <h4>아이디</h4>
                 <span class="inputbox"> ${loginInfo.id} </span>
                 <input type="checkbox" id="idcheck">
                 <h5></h5>
@@ -51,26 +51,25 @@ ${loginInfo}
             
             
             <div class="warning">
-                <label for="name"><h4>이름</h4></label>
+                <h4>이름</h4>
                 <span class="inputbox">${loginInfo.name} </span>
                 <h5></h5>
             </div>
 
             <div class="warning">
-                <label for="name"><h4>사진</h4></label>
+                <h4>사진</h4>
                 <img src = "<c:url value='/uploadfile/userphoto/${loginInfo.photo}' />" alt="회원사진" style="width: 100px;">
                 <h5></h5>
             </div>
             
             <div class="warning">
-                <label for="name"><h4>가입시각</h4></label>
+                <h4>가입시각</h4>
                 <span class="inputbox"><fmt:formatDate value="${loginInfo.regDate}" pattern ="yyyy.MM.dd H:mm a" /></span>
                 <h5></h5>
             </div>
             
             <div class="btn_click">
-            	<span><a href="#">수정</a></span>
-            	<span><a href="#">탈퇴</a></span>
+            	<span><a href="<c:url value='/member/edit?id=${loginInfo.id}' />">수정</a></span>
             </div>
         </div>
     </div>

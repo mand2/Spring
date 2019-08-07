@@ -31,6 +31,7 @@
         height: 42px;
         padding: 5px;
         box-sizing: border-box;
+		line-height: 30px;
     }
     
     .input {
@@ -56,6 +57,7 @@
         background-color: #B825F3;
         border: 0px;
         border-radius: 3px;
+        display: block;
     }                                                                                               
     
     .btn_click {

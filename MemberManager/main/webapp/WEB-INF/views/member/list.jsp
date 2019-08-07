@@ -132,7 +132,13 @@
 						<td>
 							<fmt:formatDate value="${member.regDate}" pattern="yyyy.MM.dd H:mm a" />
 						</td>	
-						<td><span><a href="#">수정</a> | <a href="#">삭제</a></span></td>
+						<td>
+							<span>
+								<a href="<c:url value='/member/edit?id=${member.id}' />">수정</a> | 
+								<a href="<c:url value='/member/delete?id=${member.id}' />" class="delete">삭제</a>
+							</span>
+						</td>
+						
 					</tr>
 			</c:forEach>
 			<!-- 리스트 반복 끝 -->
@@ -159,3 +165,16 @@
 
 </body>
 </html>
+<!-- 
+<script>
+	$(document).ready(function() {
+		$(".delete").click(function() {
+			alert('삭제하시겠습니까?');
+			
+			$.ajax({
+				url:
+				
+			});
+		});
+	});
+</script> -->

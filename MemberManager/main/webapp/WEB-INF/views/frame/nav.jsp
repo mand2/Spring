@@ -16,6 +16,7 @@
 			<c:if test="${loginInfo ne null}">
 				<li><a href="<c:url value='/member/mypage'/>">MyPage</a></li>
 				<li><a href="<c:url value='/member/list'/>">member</a></li>
+				<li><a href="#">board</a></li>
 				<li><a href="<c:url value='/login/logout'/>">LOG OUT</a></li>
 			</c:if>
 		</ul>

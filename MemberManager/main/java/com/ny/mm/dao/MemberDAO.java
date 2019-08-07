@@ -3,11 +3,11 @@ package com.ny.mm.dao;
  * 파일이름: MemberDAO.java
  * 파일설명: 멤버 관련 DAO 
  * 작성자: 김나연
- * 버전: 1.0.0
+ * 버전: 1.0.4
  * 생성일자: 2019-08-05 오후 5시 57분
- * 최종수정일자: 2019-08-05 오후 5시 57분
+ * 최종수정일자: 2019-08-07 오후 7시 30분
  * 최종수정자: 김나연
- * 최종수정내용: member manager 스프링으로 변경 
+ * 최종수정내용: 멤버 수정+삭제 쿼리 추가
  * -------------------*/
 
 import java.sql.Connection;
@@ -94,6 +94,9 @@ public class MemberDAO {
 		
 		} catch (SQLException e) {
 			System.out.println(e + "Show ALL member LIST FAIL!!");
+		} finally {
+			JdbcUtil.close(rs);
+			JdbcUtil.close(pstmt);
 		}
 		
 		return list;
@@ -144,6 +147,9 @@ public class MemberDAO {
 			
 		} catch (SQLException e) {
 			System.out.println(e + "Show ALL member LIST FAIL!!");
+		} finally {
+			JdbcUtil.close(rs);
+			JdbcUtil.close(pstmt);
 		}
 		
 		return list;
@@ -193,12 +199,15 @@ public class MemberDAO {
 			
 		} catch (SQLException e) {
 			System.out.println(e + "Show ALL member LIST FAIL!!");
+		} finally {
+			JdbcUtil.close(rs);
+			JdbcUtil.close(pstmt);
 		}
 		
 		return list;
 	}
 	
-	/*유저ID 검색*/
+	/*유저ID+이름 검색*/
 	public List<Member> selectListByBoth(Connection conn, int index, int perCnt, SearchMember searchMember) {
 		
 		PreparedStatement pstmt = null;
@@ -244,6 +253,10 @@ public class MemberDAO {
 			
 		} catch (SQLException e) {
 			System.out.println(e + "Show ALL member LIST FAIL!!");
+		
+		} finally {
+			JdbcUtil.close(rs);
+			JdbcUtil.close(pstmt);
 		}
 		
 		return list;
@@ -336,10 +349,103 @@ public class MemberDAO {
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
+		
+		} finally {
+			JdbcUtil.close(rs);
+			JdbcUtil.close(pstmt);
 		}
 		
-		
 		return totalCnt;
+	}
+	
+	//삭제: 회원목록에서
+	public int deleteMember(Connection conn, String id) {
+		int result = 0;
+		
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		String sql = "delete from project_01.memberinfo "
+					+ " where id = ?";
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, id);
+
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JdbcUtil.close(rs);
+			JdbcUtil.close(pstmt);
+		}
+		
+		return result;
+	} 
+	
+	//수정: 수정할 멤버 정보 가져오기
+	public Member selectById(Connection conn, String id) {
+		Member member = null;
+		
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		String sql = "select * from project_01.memberinfo "
+				+ " where id = ?";
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, id);
+			
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				member = new Member();
+				
+				member.setIdx(rs.getInt(1));
+				member.setId(rs.getString(2));
+				member.setPw(rs.getString(3));
+				member.setName(rs.getString(4));
+				member.setPhoto(rs.getString(5));
+				member.setRegDate(rs.getTimestamp(6));
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JdbcUtil.close(rs);
+			JdbcUtil.close(pstmt);
+		}
+		
+		return member;
+	}
+	
+	//업데이트수정: 회원목록에서
+	public int updateMember(Connection conn, Member member) {
+		int result = 0;
+		
+		PreparedStatement pstmt = null;
+		
+		String sql = "update project_01.memberinfo "
+					+ " set name = ? ,"
+					+ " pw = ? ,"
+					+ " photo = ? "
+					+ " where idx = ?" ;
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, member.getName());
+			pstmt.setString(2, member.getPw());
+			pstmt.setString(3, member.getPhoto());
+			pstmt.setInt(4, member.getIdx());
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return result;
 	}
 	
 }
