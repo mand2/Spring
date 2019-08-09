@@ -6,6 +6,8 @@ package com.bitcamp.guest.controller;
  * */
 
 import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -36,27 +38,13 @@ public class DeleteMsgController {
 			@RequestParam(value = "password") String pw,
 			Model model) {
 		
-		int result = 0;
+		Map<String, Object> resultMap = new HashMap<String, Object>();
 		
-		boolean chk = false;
-		String msg ="";
+		model.addAttribute(resultMap);
+		System.out.println("--- msg ---" + resultMap.get("msg"));
+		System.out.println("--- result ---" + resultMap.get("result"));
+		System.out.println("--- chk ---" + resultMap.get("chk"));
 		
-		
-		try {
-			result = delMsg.deleteMessage(id, pw);
-			chk = true;
-		
-		} catch (SQLException e) {
-			msg = e.getMessage();
-		} catch (MessageNotFoundException e) {
-			msg = e.getMessage();
-		} catch (InvalidMessagePasswordException e) {
-			msg = e.getMessage();
-		}
-		
-		model.addAttribute("msg", msg);
-		model.addAttribute("result", result);
-		model.addAttribute("chk", chk);
 		
 		return "guest/deleteMsg";
 	}

@@ -21,7 +21,7 @@
 			입력실패
 		</c:if>
 	</h1>
-	<a href="<c:url value="/guest/list" />">list</a>
+	<a href="<c:url value="/guest/list_j" />">list</a>
                                                                                                                                                  
 
 </body>

@@ -1,9 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%
-	request.setCharacterEncoding("utf-8");
-%>
+
 <!-- json으로 ~! jackson통해서 -->
 <!DOCTYPE html>
 <html>
@@ -12,27 +10,25 @@
 <title>::jackson:: list</title>
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <style></style>
-<link href="<c:url value='/css' />/default_css.css" type="text/css"
-	rel="stylesheet">
+<link href="<c:url value='/css' />/default_css.css" type="text/css" rel="stylesheet">
 
 </head>
 <body>
 	<!-- board List 보여주기~ MessageListView -->
 	<div class="wrap">
 		<div class="menu">
-			<h1>
-				<a href="guest/writeForm">방명록 남기기</a>
-			</h1>
+			<h1><a href="writeForm">방명록 남기기</a></h1>
 		</div>
-
-		<div id="list"></div>
 		
-		<div class="page">
+		<div id="list">
+		</div>
+		<div id="page">
 			<div id="paging"></div>
 		</div>
-
+		
+				
 	</div>
-
+	
 </body>
 </html>
 
@@ -44,7 +40,7 @@
 	/* page function */
 	function page(num) {
 		$.ajax({
-			url : 'guest/listj',
+			url : 'listj',
 			type : 'get',
 			data : {
 				page : num
@@ -91,4 +87,5 @@
 
 		});
 	}
+
 </script>

@@ -44,6 +44,9 @@ public class GuestListController {
 		return view;
 	}
 	
-	
-	
+	@RequestMapping(value = "/guest/list_j")
+	public String getList() {
+		
+		return "guest/list_j";
+	}
 }
