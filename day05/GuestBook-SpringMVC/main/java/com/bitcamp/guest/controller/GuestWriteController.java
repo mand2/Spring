@@ -33,6 +33,7 @@ public class GuestWriteController {
 		System.out.println(reqGuestWrite.toString());
 		
 		int result = writeService.write(reqGuestWrite.toMessage());
+//		System.out.println("result write | "+result);
 		
 		model.addAttribute("result", result);
 		

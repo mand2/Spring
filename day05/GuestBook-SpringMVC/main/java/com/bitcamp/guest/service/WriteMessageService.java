@@ -9,9 +9,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 
 import com.bitcamp.guest.dao.MessageDao;
+import com.bitcamp.guest.dao.MessageJdbcTemplateDao;
 import com.bitcamp.guest.domain.Message;
 import com.bitcamp.guest.jdbc.ConnectionProvider;
 
@@ -19,6 +21,7 @@ import com.bitcamp.guest.jdbc.ConnectionProvider;
 @Service("writeService")
 public class WriteMessageService implements GuestBookService{
 
+/* 2019-08-05 에 작성한 내용
 	@Autowired
 	private MessageDao dao;
 	
@@ -40,6 +43,18 @@ public class WriteMessageService implements GuestBookService{
 
 		return result;
 	}
+*/
 
-
+	/*---------------------------------------------------------
+				2019-08-08에 jdbc템플릿으로 변경
+	---------------------------------------------------------*/
+	
+	@Autowired
+	private MessageJdbcTemplateDao templateDao;
+	
+	public int write(Message message) {
+		int result = 0;
+		result = templateDao.insert(message);
+		return result;
+	}
 }
