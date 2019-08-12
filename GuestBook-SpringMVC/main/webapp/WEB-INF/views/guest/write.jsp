@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c"  uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ page trimDirectiveWhitespaces="true" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -11,17 +12,13 @@
 </head>
 <body>
 
-	<h1>${result}</h1>
-	<h1>
 		<c:if test="${result == 1}">
-			정상적으로 입력됨!
+			<c:out value="Y"/>
 		</c:if>	
 		
 		<c:if test="${!(result == 1) }">
-			입력실패
+			<c:out value="N"/>
 		</c:if>
-	</h1>
-	<a href="<c:url value="/guest/list_j" />">list</a>
                                                                                                                                                  
 
 </body>

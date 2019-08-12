@@ -9,6 +9,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.bitcamp.guest.domain.RequestGuestWrite;
 import com.bitcamp.guest.service.WriteMessageService;
@@ -26,6 +28,29 @@ public class GuestWriteController {
 		return "guest/writeForm";
 	}
 	     
+	
+
+	/* -------------------------------------
+	 * 08-12 single page by.ajax 용
+	 * -------------------------------------*/
+	/*form에서 쓰면 '잘 올라갔다' 보여주는 페이지로 넘김*/
+	@RequestMapping(value = "/guest/writeChk", method = RequestMethod.POST)
+	@ResponseBody
+	public String writeChk(RequestGuestWrite reqGuestWrite) {
+		
+		System.out.println(reqGuestWrite.toString());
+		
+		String result = writeService.writeChk(reqGuestWrite.toMessage());
+		
+//		System.out.println("result write | "+result);
+		
+		System.out.println(result);
+		return result;
+	}
+	
+	/* -------------------------------------
+	 * 이전에 작성한 메서드들 @ 08-12
+	 * -------------------------------------*/
 	/*form에서 쓰면 '잘 올라갔다' 보여주는 페이지로 넘김*/
 	@RequestMapping(value = "/guest/write", method = RequestMethod.POST)
 	public String write(RequestGuestWrite reqGuestWrite, Model model) {
@@ -33,11 +58,14 @@ public class GuestWriteController {
 		System.out.println(reqGuestWrite.toString());
 		
 		int result = writeService.write(reqGuestWrite.toMessage());
+		
 //		System.out.println("result write | "+result);
 		
 		model.addAttribute("result", result);
 		
 		return "guest/write";
 	}
+	
+	
 	
 }

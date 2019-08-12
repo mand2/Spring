@@ -71,3 +71,24 @@
 		background-color: #F7E6F9;
 		display: block;
 	}	      
+	
+	/* 글쓰기 폼 */
+	
+	#message {
+		resize: none;
+	}
+	
+	.form_w #submit_w {
+		width: 80px;
+		line-height: 30px;
+		display: inline-block;
+		background-color: #ccc; 
+		margin: 0 auto;
+		text-align: center;
+	}
+	
+	
+	
+	
+	
+	

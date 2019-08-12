@@ -83,4 +83,9 @@ public class WriteMessageService implements GuestBookService{
 		dao = template.getMapper(MsgSessionDao.class);
 		return dao.insert(message);
 	}
+	
+	public String writeChk(Message message) {
+		dao = template.getMapper(MsgSessionDao.class);
+		return dao.insert(message) == 1 ? "Y":"N";
+	}
 }
