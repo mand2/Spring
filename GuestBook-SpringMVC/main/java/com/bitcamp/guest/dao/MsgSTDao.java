@@ -57,10 +57,11 @@ public class MsgSTDao {
 		String str = nameSpace + ".select";
 		return template.selectOne(str, messageID);
 	}
-
+	
+	//메세지삭제
 	public int deleteMessage(int messageID) {
 		String str = nameSpace + ".deleteMessage";
-		return template.delete(str, messageID);
+		return template.update(str, messageID);
 		
 	}
 		

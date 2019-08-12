@@ -40,6 +40,8 @@ public class DeleteMsgController {
 		
 		Map<String, Object> resultMap = new HashMap<String, Object>();
 		
+		resultMap = delMsg.delete(id, pw);
+		
 		model.addAttribute(resultMap);
 		System.out.println("--- msg ---" + resultMap.get("msg"));
 		System.out.println("--- result ---" + resultMap.get("result"));
