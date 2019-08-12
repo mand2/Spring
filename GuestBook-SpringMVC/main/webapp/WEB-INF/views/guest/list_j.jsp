@@ -17,16 +17,17 @@
 	<!-- board List 보여주기~ MessageListView -->
 	<div class="wrap">
 		<div class="menu">
-			<h1><a href="writeForm">방명록 남기기</a></h1>
+			<h1>
+				<a href="writeForm">방명록 남기기</a>
+			</h1>
 		</div>
+
+		<div id="list"></div>
 		
-		<div id="list">
-		</div>
-		<div id="page">
+		<div class="page">
 			<div id="paging"></div>
 		</div>
-		
-				
+
 	</div>
 	
 </body>
@@ -65,7 +66,7 @@
 					output += '메세지 번호 : ' + id + '<br>\n';
 					output += '작성자 : ' + guestName + '<br>\n';
 					output += '내용 : ' + message + '<br>\n';
-					output += '<a href="guest/delete?messageID='+id+'">삭제하기</a>';
+					output += '<a href="delete?messageID='+id+'">삭제하기</a>';
 					output += '</div>\n';
 				}
 

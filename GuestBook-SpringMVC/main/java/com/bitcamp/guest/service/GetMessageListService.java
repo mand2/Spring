@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 
 import com.bitcamp.guest.dao.MessageDao;
 import com.bitcamp.guest.dao.MessageJdbcTemplateDao;
+import com.bitcamp.guest.dao.MsgSTDao;
 import com.bitcamp.guest.domain.Message;
 import com.bitcamp.guest.domain.MessageListView;
 import com.bitcamp.guest.jdbc.ConnectionProvider;
@@ -79,9 +80,42 @@ public class GetMessageListService implements GuestBookService {
 	/*---------------------------------------------------------
 				2019-08-08에 jdbc템플릿으로 변경
 	---------------------------------------------------------*/
+//	
+//	@Autowired
+//	private MessageJdbcTemplateDao dao;
+//	
+//	private static final int MESSAGE_COUNT_PER_PAGE = 3;
+//
+//	
+//	public MessageListView getMessageListView(int pageNumber) {
+//		MessageListView view = null;
+//		int currentPageNumber = pageNumber;
+//		
+//		int msgTotalCnt = dao.selectCount();
+//		List<Message> msgList = null;
+//		int firstRow = 0;
+//		
+//		if(msgTotalCnt > 0) {
+//			
+//			firstRow = (pageNumber - 1) * MESSAGE_COUNT_PER_PAGE ;
+//			msgList = dao.selectList(firstRow, MESSAGE_COUNT_PER_PAGE);
+//		
+//		} else {
+//			currentPageNumber = 0;
+//			msgList = Collections.emptyList();
+//		}
+//		
+//		view = new MessageListView(MESSAGE_COUNT_PER_PAGE, msgTotalCnt, currentPageNumber, msgList, firstRow);
+//		
+//		return view;
+//	}
 	
+	/*---------------------------------------------------------
+				2019-08-12에 mybatis템플릿으로 변경
+	---------------------------------------------------------*/
+
 	@Autowired
-	private MessageJdbcTemplateDao dao;
+	private MsgSTDao dao;
 	
 	private static final int MESSAGE_COUNT_PER_PAGE = 3;
 

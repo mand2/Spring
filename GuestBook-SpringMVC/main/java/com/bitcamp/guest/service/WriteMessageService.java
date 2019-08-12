@@ -1,5 +1,5 @@
 package com.bitcamp.guest.service;
-/* 2019-08-05 mon
+/* 2019-08-12 mon
  * */
 import java.io.UnsupportedEncodingException;
 import java.sql.Connection;
@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 
 import com.bitcamp.guest.dao.MessageDao;
 import com.bitcamp.guest.dao.MessageJdbcTemplateDao;
+import com.bitcamp.guest.dao.MsgSTDao;
 import com.bitcamp.guest.domain.Message;
 import com.bitcamp.guest.jdbc.ConnectionProvider;
 
@@ -49,12 +50,23 @@ public class WriteMessageService implements GuestBookService{
 				2019-08-08에 jdbc템플릿으로 변경
 	---------------------------------------------------------*/
 	
+//	@Autowired
+//	private MessageJdbcTemplateDao templateDao;
+//	
+//	public int write(Message message) {
+//		int result = 0;
+//		result = templateDao.insert(message);
+//		return result;
+//	}
+	
+	/*---------------------------------------------------------
+				2019-08-12에 MyBatis템플릿으로 변경
+	---------------------------------------------------------*/
+	
 	@Autowired
-	private MessageJdbcTemplateDao templateDao;
+	private MsgSTDao templateDao;
 	
 	public int write(Message message) {
-		int result = 0;
-		result = templateDao.insert(message);
-		return result;
+		return templateDao.insert(message);
 	}
 }

@@ -23,7 +23,7 @@
 	
 	
 	<h1>
-		<a href="<c:url value="/guest/list"/>">
+		<a href="<c:url value="/guest/list_j"/>">
 			list로 돌아가기
 		</a>
 	</h1>
