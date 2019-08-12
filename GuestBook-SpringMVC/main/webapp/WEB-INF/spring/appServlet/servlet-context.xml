@@ -51,7 +51,19 @@
 	<!-- @Transactional 어노테이션 활성화 설정 -->
 	<tx:annotation-driven
 		transaction-manager="transactionManager" />
-
+	
+	<!-- mybatis 설정 : datasource & mapper 경로-->
+	<beans:bean id ="sqlSessionFactory"
+		class="org.mybatis.spring.SqlSessionFactoryBean">
+		<beans:property name="dataSource" ref="dataSource" />
+		<beans:property name="mapperLocations" value="classpath:com/bitcamp/guest/mapper/mybatis/*.xml" />
+	</beans:bean> 
+	
+	<!-- mybatis 템플릿 사용 그 중에서 첫번째 인덱스의 메서드를 쓴다 -->
+	<beans:bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
+		<beans:constructor-arg index="0" ref="sqlSessionFactory" />
+	</beans:bean>
+	
 	<context:component-scan
 		base-package="com.bitcamp.guest" />
 
