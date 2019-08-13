@@ -6,20 +6,27 @@ package com.ny.mm.service;
 import java.sql.Connection;
 import java.sql.SQLException;
 
+import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.ny.mm.dao.MemberDAO;
 import com.ny.mm.dao.MemberJtDao;
-import com.ny.mm.jdbc.ConnectionProvider;
+import com.ny.mm.dao.MemberStDao;
 
 @Service(value = "deleteService")
 public class MemDelService {
 	
+	/*---------------------------------------------------------
+				2019-08-13에 mybatis템플릿으로 변경
+	---------------------------------------------------------*/
+	
 	@Autowired
-	private MemberJtDao dao;
+	private SqlSessionTemplate template;
+	private MemberStDao dao;
 	
 	public int delete(String id) {
+		dao = template.getMapper(MemberStDao.class);
 		return dao.deleteMember(id);
 	}
 	

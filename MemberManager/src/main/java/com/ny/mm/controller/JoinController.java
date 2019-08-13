@@ -52,18 +52,18 @@ public class JoinController {
 		return "join/join";
 	}
 	
-	@RequestMapping("/join/idcheck")
-	public String idCheck(@RequestParam("id") String id, Model model) {
-		
-		
-		//idCheck한 후 null값이라면(==현재 이 아이디를 쓰는 사람이 없다면) Y로 반환.
-		model.addAttribute("result", joinservice.idCheck(id));
-		
-		/* service에서 쓴 메서드: 코드정리 전
-		model.addAttribute("result", joinservice.idCheck(id)?'Y':'N');
-		*/
-		return "join/idcheck";
-	}
+//	@RequestMapping("/join/idcheck")
+//	public String idCheck(@RequestParam("id") String id, Model model) {
+//		
+//		
+//		//idCheck한 후 null값이라면(==현재 이 아이디를 쓰는 사람이 없다면) Y로 반환.
+//		model.addAttribute("result", joinservice.idCheck(id));
+//		
+//		/* service에서 쓴 메서드: 코드정리 전
+//		model.addAttribute("result", joinservice.idCheck(id)?'Y':'N');
+//		*/
+//		return "join/idcheck";
+//	}
 	
 
 	/*jsp로 보내지 않고 바로 연결하기*/

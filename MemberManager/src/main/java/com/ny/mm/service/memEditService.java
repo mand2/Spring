@@ -5,9 +5,9 @@ package com.ny.mm.service;
  * 작성자: 김나연
  * 버전: 1.0.0
  * 생성일자: 2019-08-07 오후 5시 57분
- * 최종수정일자: 2019-08-07 오후 5시 57분
+ * 최종수정일자: 2019-08-13 오전 11시 30분
  * 최종수정자: 김나연
- * 최종수정내용: member manager 스프링으로 변경 
+ * 최종수정내용: MyBatis를 이용 + auto mapper creating function
  * @select : 수정할 멤버 반환
  * @edit : 수정클릭시 수정 + 파일수정도 가능.
  * -------------------*/
@@ -20,33 +20,39 @@ import java.sql.SQLException;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
 import com.ny.mm.dao.MemberDAO;
 import com.ny.mm.dao.MemberJtDao;
-import com.ny.mm.jdbc.ConnectionProvider;
+import com.ny.mm.dao.MemberStDao;
 import com.ny.mm.model.Member;
 import com.ny.mm.model.member.EditMember;
 
 
 @Service(value = "editService")
 public class memEditService {
-	
 
+	/*---------------------------------------------------------
+				2019-08-13에 mybatis템플릿으로 변경
+	---------------------------------------------------------*/
+	
 	@Autowired
-	private MemberJtDao dao;
+	private SqlSessionTemplate template;
+	private MemberStDao dao;
 	
 	//수정할 멤버 가져오기
 	public Member select(String id) {
+		dao = template.getMapper(MemberStDao.class);
 		Member member = dao.selectById(id);
 		
 		return member;
 	}
 	
 	public int edit(HttpServletRequest request, EditMember edit, String oldFile) {
-	
+		dao = template.getMapper(MemberStDao.class);
 		int result = 0;
 		
 		String path = "/uploadfile/userphoto";

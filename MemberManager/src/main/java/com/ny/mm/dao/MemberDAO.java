@@ -21,7 +21,6 @@ import java.util.List;
 
 import org.springframework.stereotype.Repository;
 
-import com.ny.mm.jdbc.JdbcUtil;
 import com.ny.mm.model.Member;
 import com.ny.mm.model.SearchMember;
 
@@ -49,8 +48,6 @@ public class MemberDAO {
 			
 		} catch (SQLException e) {
 			System.out.println(e + " memberInsert FAIL!!");
-		} finally {
-			JdbcUtil.close(pstmt);
 		}
 		
 		return result;
@@ -94,9 +91,6 @@ public class MemberDAO {
 		
 		} catch (SQLException e) {
 			System.out.println(e + "Show ALL member LIST FAIL!!");
-		} finally {
-			JdbcUtil.close(rs);
-			JdbcUtil.close(pstmt);
 		}
 		
 		return list;
@@ -147,9 +141,6 @@ public class MemberDAO {
 			
 		} catch (SQLException e) {
 			System.out.println(e + "Show ALL member LIST FAIL!!");
-		} finally {
-			JdbcUtil.close(rs);
-			JdbcUtil.close(pstmt);
 		}
 		
 		return list;
@@ -199,9 +190,6 @@ public class MemberDAO {
 			
 		} catch (SQLException e) {
 			System.out.println(e + "Show ALL member LIST FAIL!!");
-		} finally {
-			JdbcUtil.close(rs);
-			JdbcUtil.close(pstmt);
 		}
 		
 		return list;
@@ -254,9 +242,6 @@ public class MemberDAO {
 		} catch (SQLException e) {
 			System.out.println(e + "Show ALL member LIST FAIL!!");
 		
-		} finally {
-			JdbcUtil.close(rs);
-			JdbcUtil.close(pstmt);
 		}
 		
 		return list;
@@ -289,9 +274,6 @@ public class MemberDAO {
 		
 		} catch (SQLException e) {
 			e.printStackTrace();
-		} finally {
-			JdbcUtil.close(rs);
-			JdbcUtil.close(pstmt);
 		}
 		
 		return member;
@@ -350,9 +332,6 @@ public class MemberDAO {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		
-		} finally {
-			JdbcUtil.close(rs);
-			JdbcUtil.close(pstmt);
 		}
 		
 		return totalCnt;
@@ -375,9 +354,6 @@ public class MemberDAO {
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
-		} finally {
-			JdbcUtil.close(rs);
-			JdbcUtil.close(pstmt);
 		}
 		
 		return result;
@@ -412,9 +388,6 @@ public class MemberDAO {
 
 		} catch (SQLException e) {
 			e.printStackTrace();
-		} finally {
-			JdbcUtil.close(rs);
-			JdbcUtil.close(pstmt);
 		}
 		
 		return member;

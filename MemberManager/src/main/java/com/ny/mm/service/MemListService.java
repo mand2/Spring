@@ -5,21 +5,24 @@ package com.ny.mm.service;
  * 작성자: 김나연
  * 버전: 1.0.0
  * 생성일자: 2019-08-07 오전 9시 50분
- * 최종수정일자: 2019-08-07 오전 9시 50분
+ * 최종수정일자: 2019-08-13 오전 09시 48분
  * 최종수정자: 김나연
- * 최종수정내용: member manager 스프링으로 변경 
+ * 최종수정내용: MyBatis를 이용 + auto mapper creating function
  -------------------*/
 
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.ny.mm.dao.MemberDAO;
 import com.ny.mm.dao.MemberJtDao;
-import com.ny.mm.jdbc.ConnectionProvider;
+import com.ny.mm.dao.MemberStDao;
 import com.ny.mm.model.ListViewData;
 import com.ny.mm.model.Member;
 import com.ny.mm.model.SearchMember;
@@ -27,20 +30,29 @@ import com.ny.mm.model.SearchMember;
 @Service(value = "listService")
 public class MemListService {
 	
+	/*---------------------------------------------------------
+				2019-08-13에 mybatis템플릿으로 변경
+	---------------------------------------------------------*/
+	
 	@Autowired
-	private MemberJtDao dao;
+	private SqlSessionTemplate template;
+	private MemberStDao dao;
 
 	final int MEM_PER_CNT = 5; //page당 나올 멤버 수
 	
+	
 	public ListViewData getListData(int curPageNum, SearchMember searchMember) {
 		ListViewData list = new ListViewData();
-		
+		dao = template.getMapper(MemberStDao.class);
 			
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("search", searchMember);
+		
 		//현재페이지번호
 		list.setCurPageNum(curPageNum);
 		
 		//전체 회원수
-		int totalCnt = dao.selectTotalCount(searchMember);
+		int totalCnt = dao.selectTotalCount(params);
 		
 		//전체 페이지 개수
 		int pageTotalCnt = 0;
@@ -65,17 +77,39 @@ public class MemListService {
 		 * */
 			
 		List<Member> memberList = null;
-			if(searchMember == null) {
-				memberList = dao.selectList(index, MEM_PER_CNT);
-			} else if (searchMember.getType().equals("1")) {
-				memberList = dao.selectListByName(index, MEM_PER_CNT, searchMember);
-			} else if (searchMember.getType().equals("2")) {
-				memberList = dao.selectListById(index, MEM_PER_CNT, searchMember);
-			} else if (searchMember.getType().equals("3")) {
-				memberList = dao.selectListByBoth(index, MEM_PER_CNT, searchMember);
-			}
+		
+		params.put("index", index);
+		params.put("perCnt", MEM_PER_CNT);
+		
+		memberList = dao.selectList(params);
 			
+		
+		/*하드코딩임 + 동적쿼리 쓸 때에 이렇게 쓰면 안됨!*/
+//			if(searchMember == null) {
+//				memberList = dao.selectList(params);
+//			
+//			} else if (searchMember.getType().equals("1")) {
+//				memberList = dao.selectListByName(params);
+//				
+//			} else if (searchMember.getType().equals("2")) {
+//				params.put("keyword", searchMember.getKeyword());
+//				memberList = dao.selectListById(params);
+//			
+//			} else if (searchMember.getType().equals("3")) {
+//				params.put("keyword", searchMember.getKeyword());
+//				memberList = dao.selectListByBoth(params);
+//			}
 		list.setList(memberList);
+		
+
+		//test
+		System.out.println("======list======");
+		for(Member m : memberList) {
+			System.out.println(m);
+		}
+		
+		System.out.println(totalCnt);
+		
 			
 			//no setting
 		int no = totalCnt - index;

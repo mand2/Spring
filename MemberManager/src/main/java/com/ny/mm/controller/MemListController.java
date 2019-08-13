@@ -1,5 +1,7 @@
 package com.ny.mm.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 
 /*-------------------
@@ -21,6 +23,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.ny.mm.model.ListViewData;
+import com.ny.mm.model.Member;
 import com.ny.mm.model.SearchMember;
 import com.ny.mm.service.MemListService;
 
@@ -47,6 +50,7 @@ public class MemListController {
 			searchMember.setKeyword(keyword);
 		}
 		
+		System.out.println("======searchMember======b"+searchMember);
 		ListViewData list =  listService.getListData(pno, searchMember);
 		
 		model.addAttribute("list", list);

@@ -32,11 +32,11 @@
 
 
 	<!-- DBCPInit 초기화 한번만 로드하게  -->
-	<servlet>
+	<!-- <servlet>
 		<servlet-name>DBCPInit</servlet-name>
 		<servlet-class>com.ny.mm.jdbc.DBCPInit</servlet-class>
 		<load-on-startup>1</load-on-startup>
-	</servlet>
+	</servlet> -->
 	
 	<!-- utf-8 filter -->
 		<filter>

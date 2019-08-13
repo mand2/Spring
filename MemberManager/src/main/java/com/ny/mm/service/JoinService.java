@@ -10,27 +10,32 @@ import java.sql.SQLException;
  * */
 import javax.servlet.http.HttpServletRequest;
 
+import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.ny.mm.dao.MemberDAO;
 import com.ny.mm.dao.MemberJtDao;
-import com.ny.mm.jdbc.ConnectionProvider;
+import com.ny.mm.dao.MemberStDao;
 import com.ny.mm.model.Member;
 import com.ny.mm.model.member.JoinMember;
 
 @Service(value = "joinService")
 public class JoinService implements memberService{
 	
-
+	/*---------------------------------------------------------
+				2019-08-13에 mybatis템플릿으로 변경
+	---------------------------------------------------------*/
+	
 	@Autowired
-	private MemberJtDao dao;
+	private SqlSessionTemplate template;
+	private MemberStDao dao;
 	
 	//가입 서비스
-	public int joinMember(
-			HttpServletRequest request,
-			JoinMember joinMember
-			) {
+	public int joinMember( HttpServletRequest request,
+							JoinMember joinMember ) {
+		
+		dao = template.getMapper(MemberStDao.class);
 		
 		int result = 0;
 		
@@ -71,13 +76,14 @@ public class JoinService implements memberService{
 //	}
 	
 	/*코드 정리*/
-	public char idCheck(String id) {
-		char chk = dao.selectOneMem(id)==null?'Y':'N';
-		return chk;
-	}
+//	public char idCheck(String id) {
+//		char chk = dao.selectOneMem(id)==null?'Y':'N';
+//		return chk;
+//	}
 	/*jsp로 보내지 않고 바로 연결하기*/
 	public String idCheck2(String id) {
-		String chk = dao.selectOneMem(id)==null?"Y":"N";
+		dao = template.getMapper(MemberStDao.class);
+		String chk = dao.selectById(id)==null?"Y":"N";
 		return chk;
 	}
 	
