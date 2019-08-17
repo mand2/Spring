@@ -29,6 +29,8 @@
 			insert into project_01.memberinfo (ID, PW, NAME, PHOTO) values (#{id}, #{pw}, #{name}, #{photo})
 		</insert>
 		
+		
+		<!-- toString넣는 이유: 문자열이 아닌 문자로 인식함. -->
 		<select id="selectTotalCount" parameterType="map" resultType="int">
 			select count(*) from project_01.memberinfo
 			<where>
@@ -110,4 +112,14 @@
 			delete from project_01.memberinfo 
 			where id = #{id}
 		</delete>
+		
+		<!-- ****************************************
+						REST API 용 SQL 
+			**************************************** -->
+		<select id="selectAllList" resultMap="MemberVO">
+			select * from project_01.memberinfo 
+			order by regdate desc 
+		</select>
+		
+		
 	</mapper>

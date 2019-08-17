@@ -19,6 +19,7 @@ import com.ny.mm.dao.MemberJtDao;
 import com.ny.mm.dao.MemberStDao;
 import com.ny.mm.model.Member;
 import com.ny.mm.model.member.JoinMember;
+import com.ny.mm.model.member.JoinRestApiRequest;
 
 @Service(value = "joinService")
 public class JoinService implements memberService{
@@ -33,7 +34,9 @@ public class JoinService implements memberService{
 	
 	//가입 서비스
 	public int joinMember( HttpServletRequest request,
-							JoinMember joinMember ) {
+//							JoinMember joinMember 
+							JoinRestApiRequest joinMember
+			) {
 		
 		dao = template.getMapper(MemberStDao.class);
 		
@@ -46,22 +49,31 @@ public class JoinService implements memberService{
 		
 		Member memberinfo = joinMember.toMemberInfo();
 		
+		
 		//새로운 파일 이름 생성
-		String newFileName = System.nanoTime() + "_" + joinMember.getId();
+		String newFileName = ""; 
 		
 		try {
-			//file을 서버의 지정 경로에 저장.
-			joinMember.getPhoto().transferTo(new File(dir, newFileName));
-			
-			//데이터베이스 저장을 하기위한 파일이름 세팅
-			memberinfo.setPhoto(newFileName);
-			
+			//파일 안 올렸을 때
+			if(joinMember.getPhoto() != null) {
+				//file을 서버의 지정 경로에 저장.
+				newFileName = System.nanoTime() + "_" + joinMember.getId();
+				joinMember.getPhoto().transferTo(new File(dir, newFileName));
+				
+				//데이터베이스 저장을 하기위한 파일이름 세팅
+				memberinfo.setPhoto(newFileName);
+			}
 			result = dao.insertMember(memberinfo);
 			
 		} catch (IllegalStateException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
+		} catch (Exception e) {
+			System.out.println("오류");
+			if(joinMember.getPhoto()!= null) {
+				new File(dir,newFileName).delete();
+			}
 		}
 		
 		return result;

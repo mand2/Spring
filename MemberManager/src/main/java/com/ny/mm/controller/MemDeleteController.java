@@ -7,6 +7,7 @@ package com.ny.mm.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -26,6 +27,14 @@ public class MemDeleteController {
 		
 		model.addAttribute("result", deleteService.delete(id));
 		
+		return "redirect:/member/list";
+	}
+	
+	
+	//rest방식으로 삭제
+	@RequestMapping("/member/delete/{id}")
+	public String delete(@PathVariable(value = "id")String id) {
+		deleteService.delete(id);
 		return "redirect:/member/list";
 	}
 }

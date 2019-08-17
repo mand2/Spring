@@ -172,7 +172,7 @@
 	function delMember(id) {
 		
 		if(confirm("삭제하시나요?")){
-			location.href = "/mm/member/delete?id="+id;	
+			location.href = "delete/"+id;	
 		}
 			
 	}

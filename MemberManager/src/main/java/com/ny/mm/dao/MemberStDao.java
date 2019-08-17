@@ -15,6 +15,7 @@ import java.util.Map;
 
 import com.ny.mm.model.Member;
 import com.ny.mm.model.SearchMember;
+import com.ny.mm.service.memberService;
 
 public interface MemberStDao {
 	
@@ -29,4 +30,7 @@ public interface MemberStDao {
 	public List<Member> selectListByName(Map<String, Object> params) ;
 	public List<Member> selectListById(Map<String, Object> params) ;
 	public List<Member> selectListByBoth(Map<String, Object> params);
+	
+	//Rest Api를 위한 회원전체 리스트 메서드
+	public List<Member> selectAllList();
 }

@@ -12,6 +12,7 @@ package com.ny.mm.service;
 
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -118,6 +119,29 @@ public class MemListService {
 
 		return list;
 	}
+	
+	
+	
+
+	/* -------------------------------------
+	 * 		08-14 RestApi 용 메서드 작성
+	 * -------------------------------------*/
+	
+	public List<Member> getAllList(){
+		
+		dao = template.getMapper(MemberStDao.class);
+		List<Member> list = dao.selectAllList(); //여기서는 list 자르지않고 다 가져옴
+		return list;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	/* -------------------------------------

@@ -26,7 +26,7 @@ public class JoinMember {
 		String info ="";
 		info += "<span class=\"inputBox\">아 이 디</span>" + id + "\n";
 		info += "<span class=\"inputBox\">이    름</span>" + name + "\n";
-		info += "<span class=\"inputBox\">사    진</span>" + photo.getOriginalFilename() + "\n";
+//		info += "<span class=\"inputBox\">사    진</span>" + photo.getOriginalFilename() + "\n";
 		
 		return info;
 	}
