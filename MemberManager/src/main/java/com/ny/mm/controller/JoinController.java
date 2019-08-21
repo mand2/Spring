@@ -28,7 +28,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.ny.mm.dao.MemberDAO;
 import com.ny.mm.model.Member;
 import com.ny.mm.model.member.JoinMember;
+import com.ny.mm.model.member.JoinRestApiRequest;
 import com.ny.mm.service.JoinService;
+import com.ny.mm.service.MailSenderService;
 import com.ny.mm.service.memberService;
 
 @Controller
@@ -43,27 +45,16 @@ public class JoinController {
 	}
 	
 	@RequestMapping(value = "/join/form", method = RequestMethod.POST)
-	public String join(Model model, JoinMember joinMember, HttpServletRequest request) {
+	public String join(Model model, JoinMember joinMember, HttpServletRequest request, JoinRestApiRequest restRequest) {
 		
-		model.addAttribute("result", joinservice.joinMember(request, joinMember));
+//		model.addAttribute("result", joinservice.joinMember(request, joinMember));
+		model.addAttribute("result", joinservice.joinMember(request, restRequest));
 		
-		model.addAttribute("member", new Member(joinMember.getId(), joinMember.getPw(), joinMember.getName(), joinMember.getPhoto().getOriginalFilename()));
+//		model.addAttribute("member", new Member(joinMember.getId(), joinMember.getPw(), joinMember.getName(), joinMember.getPhoto().getOriginalFilename()));
+		model.addAttribute("member", new Member(restRequest.getId(), restRequest.getPw(), restRequest.getName(), restRequest.getPhoto().getOriginalFilename(), restRequest.getEmail()));
 		
 		return "join/join";
 	}
-	
-//	@RequestMapping("/join/idcheck")
-//	public String idCheck(@RequestParam("id") String id, Model model) {
-//		
-//		
-//		//idCheck한 후 null값이라면(==현재 이 아이디를 쓰는 사람이 없다면) Y로 반환.
-//		model.addAttribute("result", joinservice.idCheck(id));
-//		
-//		/* service에서 쓴 메서드: 코드정리 전
-//		model.addAttribute("result", joinservice.idCheck(id)?'Y':'N');
-//		*/
-//		return "join/idcheck";
-//	}
 	
 
 	/*jsp로 보내지 않고 바로 연결하기*/

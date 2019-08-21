@@ -67,6 +67,12 @@
                 <h5></h5>
             </div>
             
+            <div class="warning">
+                <label for="name"><h4>이메일</h4></label>
+                <span class="inputbox">${member.email} </span>
+                <h5></h5>
+            </div>
+            
             <h1>가입을 축하드립니다.</h1>
             <div class="btn_click">
             	<span><a href="<c:url value='/'/>">홈으로</a></span>

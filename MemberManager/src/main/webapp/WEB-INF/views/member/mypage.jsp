@@ -56,6 +56,12 @@ ${loginInfo}
             </div>
 
             <div class="warning">
+                <h4>이메일</h4>
+                <span class="inputbox">${loginInfo.email} </span>
+                <h5></h5>
+            </div>
+
+            <div class="warning">
                 <h4>사진</h4>
                 <img src = "<c:url value='/uploadfile/userphoto/${loginInfo.photo}' />" alt="회원사진" style="width: 100px;">
                 <h5></h5>

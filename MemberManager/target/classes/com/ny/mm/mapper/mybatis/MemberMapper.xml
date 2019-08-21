@@ -18,6 +18,9 @@
 			<result property="name" column="name"/>
 			<result property="photo" column="photo"/>
 			<result property="regDate" column="regdate"/>
+			<result property="code" column="code"/>
+			<result property="verify" column="verify"/>
+			<result property="email" column="email"/>
 		</resultMap>
 	
 		<select id="selectById" resultMap="MemberVO" >
@@ -26,7 +29,8 @@
 		</select>
 		
 		<insert id="insertMember" parameterType="com.ny.mm.model.Member">
-			insert into project_01.memberinfo (ID, PW, NAME, PHOTO) values (#{id}, #{pw}, #{name}, #{photo})
+			insert into project_01.memberinfo (ID, PW, NAME, PHOTO, CODE, EMAIL) 
+			values (#{id}, #{pw}, #{name}, #{photo}, #{code}, #{email})
 		</insert>
 		
 		
@@ -121,5 +125,21 @@
 			order by regdate desc 
 		</select>
 		
+		<!-- ****************************************
+						verify 인증하기 
+			**************************************** -->
+		<update id="updateVerify">
+			update project_01.memberinfo 
+			set verify = 'Y'
+			where id = #{param1} 
+			and code = #{param2}
+		</update>		
+		
+		<update id="updateEmail" parameterType="com.ny.mm.model.member.VerifyMember">
+			update project_01.memberinfo 
+			set email = #{email},
+			code = #{code}
+			where id = #{id}
+		</update>
 		
 	</mapper>

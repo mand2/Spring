@@ -67,6 +67,12 @@
                     <h5></h5>
                 </div>
                 
+                <div class="warning">
+                    <label for="email"><h4>이메일</h4></label>
+                    <span class="inputbox"><input type="text" name = "email" id="email" class="input"></span>
+                    <h5></h5>
+                </div>
+                
                 
                 <input type="submit" value="회원가입">
             </div>

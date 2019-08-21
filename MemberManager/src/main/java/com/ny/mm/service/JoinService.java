@@ -32,10 +32,13 @@ public class JoinService implements memberService{
 	private SqlSessionTemplate template;
 	private MemberStDao dao;
 	
+	@Autowired
+	private MailSenderService mailService;
+	
 	//가입 서비스
 	public int joinMember( HttpServletRequest request,
-//							JoinMember joinMember 
-							JoinRestApiRequest joinMember
+							JoinMember joinMember 
+//							JoinRestApiRequest joinMember
 			) {
 		
 		dao = template.getMapper(MemberStDao.class);
@@ -64,6 +67,56 @@ public class JoinService implements memberService{
 				memberinfo.setPhoto(newFileName);
 			}
 			result = dao.insertMember(memberinfo);
+			
+		} catch (IllegalStateException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (Exception e) {
+			System.out.println("오류");
+			if(joinMember.getPhoto()!= null) {
+				new File(dir,newFileName).delete();
+			}
+		}
+		
+		return result;
+	}
+	
+	
+	//가입 서비스 rest + email 사용
+	public int joinMember( HttpServletRequest request,
+//			JoinMember joinMember 
+							JoinRestApiRequest joinMember
+			) {
+		
+		dao = template.getMapper(MemberStDao.class);
+		
+		int result = 0;
+		
+		//서버경로
+		String path = "/uploadfile/userphoto"; //resource mapping해야함.
+		//절대경로
+		String dir = request.getSession().getServletContext().getRealPath(path);
+		
+		Member memberinfo = joinMember.toMemberInfo();
+		System.out.println("멤버확인----------------------\n" + memberinfo);
+		
+		//새로운 파일 이름 생성
+		String newFileName = ""; 
+		
+		try {
+			//파일 안 올렸을 때
+			if(joinMember.getPhoto() != null) {
+				//file을 서버의 지정 경로에 저장.
+				newFileName = System.nanoTime() + "_" + joinMember.getId();
+				joinMember.getPhoto().transferTo(new File(dir, newFileName));
+				
+				//데이터베이스 저장을 하기위한 파일이름 세팅
+				memberinfo.setPhoto(newFileName);
+			}
+			result = dao.insertMember(memberinfo);
+			
+			mailService.send(memberinfo);
 			
 		} catch (IllegalStateException e) {
 			e.printStackTrace();

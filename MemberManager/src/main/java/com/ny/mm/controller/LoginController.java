@@ -50,7 +50,7 @@ public class LoginController {
 	public String login(@RequestParam(value = "id")String id, @RequestParam(value = "pw") String pw,
 					HttpServletRequest request) {
 		
-		boolean loginChk = false;
+		int loginChk = 0;
 		int result = 0;
 		
 
@@ -58,8 +58,19 @@ public class LoginController {
 		String view = "login/fail"; 
 		loginChk = loginservice.login(id, pw, request);
 		
-		if(loginChk) {
+//		if(loginChk == 1) {
+//			view = "redirect:/home";
+//		}
+		
+		switch (loginChk) {
+		case 1:
+			view = "login/verify_C";
+			break;
+		case 2:
+			
 			view = "redirect:/home";
+			break;
+
 		}
 		
 		return view;

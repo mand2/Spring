@@ -33,4 +33,8 @@ public interface MemberStDao {
 	
 	//Rest Api를 위한 회원전체 리스트 메서드
 	public List<Member> selectAllList();
+	
+	//verify
+	public int updateVerify(String id, String code);
+	public int updateEmail(Member member);
 }

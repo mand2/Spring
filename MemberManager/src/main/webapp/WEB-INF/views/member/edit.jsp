@@ -58,6 +58,12 @@
 	            </div>
 	
 	            <div class="warning">
+	                <label for="email"><h4>이메일</h4></label>
+	                <span class="inputbox">${member.email}</span>
+	                <h5></h5>
+	            </div>
+
+	            <div class="warning">
 	                <label for="photo"><h4>사진</h4></label>
 	                <img src = "<c:url value='/uploadfile/userphoto/${member.photo}' />" alt="회원사진" style="width: 100px;">
 	                <span class="inputbox"><input type="file" name = "photo" id="photo"></span>
